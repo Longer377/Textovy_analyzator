@@ -62,39 +62,39 @@ selected_text = int(selected_text) - 1
 
 words = TEXTS[selected_text].split()
 
-pocet_slov = len(words)
-zacina_velkym = sum(1 for w in words if w[0].isupper())
-velkymi = sum(1 for w in words if w.isupper())
-malymi = sum(1 for w in words if w.islower())
-cisla = [float(w) for w in words if w.replace('.', '', 1).isdigit()]
-pocet_cisel = len(cisla)
-soucet_cisel = int(sum(cisla))
+word_count = len(words)
+titlecase_count = sum(1 for word in words if word[0].isupper())
+uppercase_count = sum(1 for word in words if word.isupper())
+lowercase_count = sum(1 for word in words if word.islower())
+numeric_values = [float(word) for word in words if word.replace('.', '', 1).isdigit()]
+numeric_count = len(numeric_values)
+numeric_sum = int(sum(numeric_values))
 
-delky = {}
-for w in words:
-    w = w.strip(",.!?;:\"'()[]{}")
-    delka = len(w)
-    if delka not in delky:
-        delky[delka] = 0
-    delky[delka] += 1
+length_distribution = {}
+for word in words:
+    cleaned_word = word.strip(",.!?;:\"'()[]{}")
+    word_length = len(cleaned_word)
+    if word_length not in length_distribution:
+        length_distribution[word_length] = 0
+    length_distribution[word_length] += 1
 
 # Vypis analyzy
 
 print("-" * 40)
-print(f"There are {pocet_slov} words in the selected text.")
-print(f"There are {zacina_velkym} titlecase words.")
-print(f"There are {velkymi} uppercase words.")
-print(f"There are {malymi} lowercase words.")
-print(f"There are {pocet_cisel} numeric strings.")
-print(f"The sum of all the numbers {soucet_cisel}")
+print(f"There are {word_count} words in the selected text.")
+print(f"There are {titlecase_count} titlecase words.")
+print(f"There are {uppercase_count} uppercase words.")
+print(f"There are {lowercase_count} lowercase words.")
+print(f"There are {numeric_count} numeric strings.")
+print(f"The sum of all the numbers {numeric_sum}")
 print("-" * 40)
 
 print("LEN|  OCCURRENCES  |NR.")
 print("-" * 40)
 
-for d in sorted(delky):
-    hvezdy = '*' * delky[d]
-    print(f"{d:3}|{hvezdy:<19}|{delky[d]}")
+for word_length in sorted(length_distribution):
+    stars = '*' * length_distribution[word_length]
+    print(f"{word_length:3}|{stars:<19}|{length_distribution[word_length]}")
 
 
 
